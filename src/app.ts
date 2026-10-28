@@ -11,10 +11,9 @@ import { config } from './config';
 
 const app = express();
 
-if (config.NODE_ENV !== 'production') {
-  app.get('/docs.json', (_req, res) => res.json(openapi));
-  app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapi, { swaggerOptions: { persistAuthorization: true } }));
-}
+// API docs — always available so you can test from any environment
+app.get('/docs.json', (_req, res) => res.json(openapi));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapi, { swaggerOptions: { persistAuthorization: true } }));
 
 app.use(helmet());
 app.use(cors());
